@@ -6,9 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
+    public float gravityScale = 5f;
 
     private Vector3 moveDirection;
 
+    public CharacterController characterController;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +21,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float yStore = moveDirection.y;
+
         moveDirection = new Vector3 (Input.GetAxisRaw("Horizontal"),0f,Input.GetAxisRaw("Vertical"));
-        transform.position = transform.position + (moveDirection * Time.deltaTime);
+        moveDirection = moveDirection * moveSpeed;
+        moveDirection.y = yStore;
+         
+        if (Input.GetButtonDown("Jump")) 
+        {
+            moveDirection.y = jumpForce;
+        }
+
+        moveDirection.y += Physics.gravity.y * Time.deltaTime * gravityScale;
+
+        characterController.Move(moveDirection * Time.deltaTime);
     }
 }

@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
         moveDirection = (transform.forward * Input.GetAxisRaw("Vertical"))+transform.right*Input.GetAxisRaw("Horizontal");
         moveDirection = moveDirection * moveSpeed;
         moveDirection.y = yStore;
+
          if (characterController.isGrounded )
          {
             moveDirection.y = 0f;

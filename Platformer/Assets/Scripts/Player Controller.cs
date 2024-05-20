@@ -32,11 +32,16 @@ public class PlayerController : MonoBehaviour
         moveDirection = (transform.forward * Input.GetAxisRaw("Vertical"))+transform.right*Input.GetAxisRaw("Horizontal");
         moveDirection = moveDirection * moveSpeed;
         moveDirection.y = yStore;
-         
-        if (Input.GetButtonDown("Jump")) 
-        {
-            moveDirection.y = jumpForce;
-        }
+         if (characterController.isGrounded )
+         {
+            moveDirection.y = 0f;
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                moveDirection.y = jumpForce;
+            }
+         }
+       
 
         moveDirection.y += Physics.gravity.y * Time.deltaTime * gravityScale;
 

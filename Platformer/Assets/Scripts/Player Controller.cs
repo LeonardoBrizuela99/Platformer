@@ -1,13 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
-    public float moveSpeed;
+
+    //[SerializeField]
+   // private float movementSpeed;
+   // [SerializeField]
+   // private float maxSpeed;
+
+    //[SerializeField]
+    //private float jumpForce;
+    // Inputsystem inputActions;
+   // InputAction move;
+
+   // private Rigidbody rb;
+  //  private Vector3 forceDirection;
+
+
     public float jumpForce;
+    public float moveSpeed;
+    
     public float gravityScale = 5f;
     public float rotateSpeed=5f;
 
@@ -18,11 +35,27 @@ public class PlayerController : MonoBehaviour
     public GameObject playerModel;
     public Animation animator;
 
-    private void Awake()
-    {
+     void Awake()
+     {
         instance = this;
-    }
+       // rb = GetComponent<Rigidbody>();
+        //inputActions =new InputSystem();    
+     }
 
+    //private void OnEnable()
+    //{
+    //    inputActions.Land.Jump.performed += OnJump;
+    //    inputActions.Enable();
+    //}
+    //private void OnDisable()
+    //{
+    //    inputActions.Land.Jump.performed -= OnJump;
+    //    inputActions.Disable();
+    //}
+    //void OnJump(InputAction.CallbackContext ctx)
+    //{
+
+    //}
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +72,20 @@ public class PlayerController : MonoBehaviour
         moveDirection = (transform.forward * Input.GetAxisRaw("Vertical"))+transform.right*Input.GetAxisRaw("Horizontal");
         moveDirection = moveDirection * moveSpeed;
         moveDirection.y = yStore;
+
+        //forceDirection += move.ReadValue<Vector2>().x * transform.right * movementSpeed;
+        //forceDirection += move.ReadValue<Vector2>().y * transform.forward * movementSpeed;
+
+        //rb.AddForce(forceDirection,ForceMode.Impulse);
+        //forceDirection = Vector3.zero;
+
+        //Vector3 horizontalVel = rb.velocity;
+        //horizontalVel.y = 0;
+
+        //if (horizontalVel.sqrMagnitude>maxSpeed*maxSpeed)
+        //{
+        //    rb.velocity = horizontalVel.normalized * maxSpeed + Vector3.up * rb.velocity.y;
+        //}
 
          if (characterController.isGrounded )
          {

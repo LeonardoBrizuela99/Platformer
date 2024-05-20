@@ -26,18 +26,18 @@ public class GameManager : MonoBehaviour
     public void Respawn()
     {
         StartCoroutine("RespawnWaiter");
-        //PlayerController.instance.gameObject.SetActive(false);
-       // PlayerController.instance.transform.position = respawnPosition;
-       // PlayerController.instance.gameObject.SetActive(true);
     }
 
     public IEnumerator RespawnWaiter()
     {
         PlayerController.instance.gameObject.SetActive(false);
+        CameraController.instance.camBrain.enabled = false;
         
         yield return new WaitForSeconds(2f);
-        
+
+
         PlayerController.instance.transform.position = respawnPosition;
+        CameraController.instance.camBrain.enabled = true;
         PlayerController.instance.gameObject.SetActive(true);
     }
 }

@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public CharacterController characterController;
     public Camera playerCamara;
     public GameObject playerModel;
+    public Animation animator;
     // Start is called before the first frame update
     void Start()
     {

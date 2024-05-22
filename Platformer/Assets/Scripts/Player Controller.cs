@@ -8,10 +8,16 @@ public class PlayerController : MonoBehaviour
 {
    public float horizontalMove;
    public float verticalMove;
+    private Vector3 playerInput;
     //  public static PlayerController instance;
     public CharacterController player;
     public float playerSpeed;
 
+    private Vector3 movePlayer;
+
+    public Camera mainCamera;
+    private Vector3 camFoward;
+    private Vector3 camRight;
     //  //[SerializeField]
     // // private float movementSpeed;
     // // [SerializeField]
@@ -73,7 +79,19 @@ public class PlayerController : MonoBehaviour
         horizontalMove = Input.GetAxis("Horizontal");
         verticalMove = Input.GetAxis("Vertical");
         //float yStore = moveDirection.y;
+        
+        playerInput = new Vector3(horizontalMove,0,verticalMove);
+        playerInput = Vector3.ClampMagnitude(playerInput, 1);
 
+        camDirection();
+
+        movePlayer = playerInput.x * camRight + playerInput.z * camFoward;
+
+        player.transform.LookAt(player.transform.position + movePlayer);
+        
+        player.Move(movePlayer *playerSpeed * Time.deltaTime);
+
+        Debug.Log(player.velocity.magnitude);
         ////moveDirection = new Vector3 (Input.GetAxisRaw("Horizontal"),0f,Input.GetAxisRaw("Vertical"));
         //moveDirection.Normalize();
         //moveDirection = (transform.forward * Input.GetAxisRaw("Vertical"))+transform.right*Input.GetAxisRaw("Horizontal");
@@ -118,8 +136,16 @@ public class PlayerController : MonoBehaviour
 
         
     }
-    private void FixedUpdate()
+
+    void camDirection()
     {
-        player.Move(new Vector3(horizontalMove, 0, verticalMove)*playerSpeed*Time.deltaTime);
+        camFoward=mainCamera.transform.forward;
+        camRight=mainCamera.transform.right;
+
+        camFoward.y=0;
+        camRight.y=0;
+
+        camFoward = camFoward.normalized;
+        camRight = camRight.normalized;
     }
 }

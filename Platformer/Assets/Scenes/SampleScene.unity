@@ -886,12 +886,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1233679972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4665c7e9d1c3e9d47ad85af15fe710b6, type: 3}
+  m_Script: {fileID: 11500000, guid: d49fdb781027e63478b942238da93aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: -2.79, y: 0, z: 0.46}
-  sensibilidad: 0
-  lerpValue: 0
+  target: {fileID: 2138350490}
+  rotationSpeed: {x: 0, y: 0}
 --- !u!1 &1413558380
 GameObject:
   m_ObjectHideFlags: 0

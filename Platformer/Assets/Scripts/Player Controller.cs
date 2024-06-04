@@ -6,18 +6,18 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-   public float horizontalMove;
-   public float verticalMove;
-    private Vector3 playerInput;
-    //  public static PlayerController instance;
-    public CharacterController player;
-    public float playerSpeed;
+    [SerializeField]public float horizontalMove;
+    [SerializeField]public float verticalMove;
+    [SerializeField]private Vector3 playerInput;
+   
+    [SerializeField]public CharacterController player;
+    [SerializeField]public float playerSpeed;
+    
+    [SerializeField]private Vector3 movePlayer;
 
-    private Vector3 movePlayer;
-
-    public Camera mainCamera;
-    private Vector3 camFoward;
-    private Vector3 camRight;
+    [SerializeField]public Camera mainCamera;
+    [SerializeField]private Vector3 camFoward;
+    [SerializeField] private Vector3 camRight;
  
     void Start()
     {

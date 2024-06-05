@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]private Vector3 playerInput;
    
     [SerializeField]public CharacterController player;
-    [SerializeField]public float playerSpeed;
+    public PlayerSpeed playerSpeed;
     
     [SerializeField]private Vector3 movePlayer;
 
@@ -39,8 +39,9 @@ public class PlayerController : MonoBehaviour
         movePlayer = playerInput.x * camRight + playerInput.z * camFoward;
 
         player.transform.LookAt(player.transform.position + movePlayer);
-        
-        player.Move(movePlayer *playerSpeed * Time.deltaTime);
+
+        player.Move(movePlayer * playerSpeed.speed * Time.deltaTime);
+
 
         Debug.Log(player.velocity.magnitude);
         

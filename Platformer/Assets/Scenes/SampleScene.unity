@@ -891,6 +891,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 2138350490}
   rotationSpeed: {x: 0, y: 0}
+  distanceFromTarget: 5
+  offset: {x: 0, y: 0, z: 0}
+  smoothTime: 0.3
 --- !u!1 &1413558380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,9 +1235,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalMove: 0
   verticalMove: 0
-  player: {fileID: 0}
-  playerSpeed: 5
+  playerInput: {x: 0, y: 0, z: 0}
+  player: {fileID: 2138350492}
+  playerSpeed: {fileID: 11400000, guid: e5c07ed39a71ecc4583ea063d23c9d39, type: 2}
+  movePlayer: {x: 0, y: 0, z: 0}
   mainCamera: {fileID: 1233679974}
+  camFoward: {x: 0, y: 0, z: 0}
+  camRight: {x: 0, y: 0, z: 0}
 --- !u!143 &2138350492
 CharacterController:
   m_ObjectHideFlags: 0

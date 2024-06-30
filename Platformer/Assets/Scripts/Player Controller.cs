@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = -15f;
     private Vector3 velocity;
     private bool isGrounded;
+    private int jumpCount=0;
     void Start()
     {
         player = GetComponent<CharacterController>();
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
+            jumpCount = 0;
         }
 
         horizontalMove = Input.GetAxis("Horizontal");
@@ -51,9 +53,10 @@ public class PlayerController : MonoBehaviour
 
         player.Move(movePlayer * playerSpeed.speed * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && (isGrounded || jumpCount<2))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            jumpCount++;
         }
 
         velocity.y += gravity * Time.deltaTime;

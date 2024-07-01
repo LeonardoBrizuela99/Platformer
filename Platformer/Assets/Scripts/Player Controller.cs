@@ -23,10 +23,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = -15f;
     private Vector3 velocity;
     private bool isGrounded;
-    private int jumpCount=0;
+    private int jumpCount = 0;
+
+    private AudioSource audioSource;
+    
+    public AudioClip jumpSound;
     void Start()
     {
         player = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -57,6 +62,7 @@ public class PlayerController : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             jumpCount++;
+            PlayJumpSound();
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -89,6 +95,13 @@ public class PlayerController : MonoBehaviour
         if (jumpHeight < 1.0f)
         {
             jumpHeight = 1.0f;
+        }
+    }
+    private void PlayJumpSound()
+    {
+        if (jumpSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(jumpSound);
         }
     }
 }

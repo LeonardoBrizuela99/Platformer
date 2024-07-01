@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private int jumpCount = 0;
 
+    private Animator animator;
+
     private AudioSource audioSource;
     
     public AudioClip jumpSound;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         player = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
 
@@ -63,6 +66,7 @@ public class PlayerController : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             jumpCount++;
             PlayJumpSound();
+            animator.SetTrigger("Jump");
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -70,6 +74,23 @@ public class PlayerController : MonoBehaviour
         player.Move(velocity * Time.deltaTime);
 
         Debug.Log(player.velocity.magnitude);
+        if (playerInput.magnitude > 0)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
+
+        if (isGrounded)
+        {
+            animator.SetBool("isJumping", false);
+        }
+        else
+        {
+            animator.SetBool("isJumping", true);
+        }
 
     }
 

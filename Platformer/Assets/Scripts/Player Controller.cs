@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
         player.Move(velocity * Time.deltaTime);
 
         Debug.Log(player.velocity.magnitude);
+
         if (playerInput.magnitude > 0)
         {
             animator.SetBool("isRunning", true);

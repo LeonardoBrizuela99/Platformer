@@ -25,16 +25,21 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private int jumpCount = 0;
 
-    private Animator animator;
+    //private Animator animator;
+
+    public float fallLimit = -10.0f;
+    private Vector3 startPosition;
+    public FadeTransition fadeTransition;
 
     private AudioSource audioSource;
-    
+
     public AudioClip jumpSound;
     void Start()
     {
         player = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
+        startPosition = transform.position;
     }
 
 
@@ -61,12 +66,12 @@ public class PlayerController : MonoBehaviour
 
         player.Move(movePlayer * playerSpeed.speed * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump") && (isGrounded || jumpCount<2))
+        if (Input.GetButtonDown("Jump") && (isGrounded || jumpCount < 2))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             jumpCount++;
             PlayJumpSound();
-            animator.SetTrigger("Jump");
+            // animator.SetTrigger("Jump");
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -75,23 +80,27 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log(player.velocity.magnitude);
 
-        if (playerInput.magnitude > 0)
+        if (transform.position.y < fallLimit)
         {
-            animator.SetBool("isRunning", true);
+            StartCoroutine(Respawn());
         }
-        else
-        {
-            animator.SetBool("isRunning", false);
-        }
+        //if (playerInput.magnitude > 0)
+        //{
+        //    animator.SetBool("isRunning", true);
+        //}
+        //else
+        //{
+        //    animator.SetBool("isRunning", false);
+        //}
 
-        if (isGrounded)
-        {
-            animator.SetBool("isJumping", false);
-        }
-        else
-        {
-            animator.SetBool("isJumping", true);
-        }
+        //if (isGrounded)
+        //{
+        //    animator.SetBool("isJumping", false);
+        //}
+        //else
+        //{
+        //    animator.SetBool("isJumping", true);
+        //}
 
     }
 
@@ -125,5 +134,12 @@ public class PlayerController : MonoBehaviour
         {
             audioSource.PlayOneShot(jumpSound);
         }
+    }
+
+    private IEnumerator Respawn()
+    {
+        yield return StartCoroutine(fadeTransition.FadeOut());
+        transform.position = startPosition;
+        yield return StartCoroutine(fadeTransition.FadeIn());
     }
 }

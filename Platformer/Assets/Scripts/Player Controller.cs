@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     //private Animator animator;
 
-    public float fallLimit = -10.0f;
+    public float fallLimit = -5.0f;
     private Vector3 startPosition;
     public FadeTransition fadeTransition;
 
